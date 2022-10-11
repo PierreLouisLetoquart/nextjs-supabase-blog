@@ -39,6 +39,13 @@ app.get('/api/articles/:articleId', (req,res) => {
     res.send("Article trouvé !");
 })
 
+app.get('/api/articles/1', (req,res) => {
+  const searchId = '6ec0bd7f-11c0-43da-975e-2a8ad9ebae0b';
+  const article = db.articles.find(article=>article.id=== searchId);
+  if (!article) res.status(404).send('Article non trouvé ');
+  res.send(article);
+})
+
 app.get('/api/posts/:year/:month', (req,res)=> {
     res.send(req.params);
 })

@@ -2,7 +2,7 @@
   "name": "ece-webapp-pierrelouis-kilan",
   "version": "1.0.0",
   "description": "projet webtech pl kilan",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",

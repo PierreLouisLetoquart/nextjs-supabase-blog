@@ -15,24 +15,24 @@ This project uses the following environment variables:
 # Getting started
 - Clone the repository
 ```
-git clone  <git lab template url> <project_name>
+git clone git@github.com:random-long-int/ece-webapp-PierreLouis-Kilan.git
 ```
 - Install dependencies
 ```
-cd <project_name>
+cd ece-webapp-PierreLouis-Kilan
 npm install
 ```
 - Build and run the project
 ```
 npm start
 ```
-  Navigate to `http://localhost:8001`
+  Navigate to `http://localhost:3000`
 
 - API Document endpoints
 
-  swagger Spec Endpoint : http://localhost:8001/api-docs 
+  swagger Spec Endpoint : http://localhost:3000/api-docs
 
-  swagger-ui  Endpoint : http://localhost:8001/docs 
+  swagger-ui  Endpoint : http://localhost:3000/docs
 
 
 # TypeScript + Node 

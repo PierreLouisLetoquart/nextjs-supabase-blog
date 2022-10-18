@@ -19,6 +19,7 @@ import web3 from "../public/web3.png";
 import web4 from "../public/web4.png";
 import web5 from "../public/web5.png";
 import web6 from "../public/web6.png";
+import Link from "next/link";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -44,23 +45,46 @@ export default function Home() {
               <li>
                 <a
                   className="bg-gradient-to-r from-cyan-500 text- to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8"
-                  href="#"
+                  href="/"
                 >
-                  Resume
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  className="bg-gradient-to-r from-cyan-500 text- to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8"
+                  href="/About"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  className="bg-gradient-to-r from-cyan-500 text- to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8"
+                  href="/articles"
+                >
+                  Articles
+                </a>
+              </li>
+              <li>
+                <a
+                  className="bg-gradient-to-r from-cyan-500 text- to-teal-500 text-white px-4 py-2 border-none rounded-md ml-8"
+                  href="/contact"
+                >
+                  Contacts
                 </a>
               </li>
             </ul>
           </nav>
           <div className="text-center p-10 py-10">
             <h2 className="text-5xl py-2 text-teal-600 font-medium dark:text-teal-400 md:text-6xl">
-              Actual web2
+              Home
             </h2>
             <h3 className="text-2xl py-2 dark:text-white md:text-3xl">
               Be smart and efficient
             </h3>
             <p className="text-md py-5 leading-8 text-gray-800 dark:text-gray-200 max-w-xl mx-auto md:text-xl">
-              Web2 has evolved enormously today, we must adapt to all devices.
-              Nextjs and Tailwindcss are the perfect answer to this.
+              J'adore le WEB
             </p>
             <div className="text-5xl flex justify-center gap-16 py-3 text-gray-600 dark:text-gray-400">
               <AiFillTwitterCircle />

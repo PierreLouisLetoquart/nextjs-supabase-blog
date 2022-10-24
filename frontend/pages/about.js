@@ -32,8 +32,7 @@ const features = [
 export default function About() {
   return (
     <main className=" bg-white px-10 dark:bg-gray-900 md:px-20 lg:px-40">
-      <section className="min-h-screen">
-        <Navbar />
+      <section className="min-h-full">
         <div className="bg-white py-5">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="lg:text-center">

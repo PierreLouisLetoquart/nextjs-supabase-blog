@@ -23,7 +23,7 @@ export default function Navbar() {
 
 							<div className="hidden md:block">
 								<div className="ml-10 flex items-baseline space-x-8 text-gray-800">
-                    <Link href={"/about"}>
+                    <Link href={"/"}>
                         <p className="cursor-pointer relative group md:px-1 font-medium">
                             <span>Articles</span>
                             <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-gray-700 group-hover:w-1/2 group-hover:transition-all rounded-tr-xl rounded-br-xl"></span>
@@ -81,7 +81,7 @@ export default function Navbar() {
 					{(ref) => (
 						<div className="md:hidden" id="mobile-menu">
 							<div ref={ref} className="bg-white px-2 pt-5 pb-5 space-y-4 sm:px-3 border-t-2 border-gray-50" >
-                <Link href={"/about"}>
+                <Link href={"/"}>
                     <p className="cursor-pointer relative group font-medium mx-10 p-1">
                         <span>Articles</span>
                         <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-gray-700 group-hover:w-1/2 group-hover:transition-all rounded-tr-xl rounded-br-xl"></span>

@@ -44,7 +44,7 @@ export default function Navbar() {
                             <span className="absolute -bottom-1 right-1/2 w-0 h-0.5 bg-gray-700 group-hover:w-1/2 group-hover:transition-all rounded-tl-xl rounded-bl-xl"></span>
                         </p>
                     </Link>
-                    <Link href={"/"}>
+                    <Link href={"/login"}>
                         <p className="cursor-pointer relative group md:px-1 font-medium">
                             <span>Login</span>
                             <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-gray-700 group-hover:w-1/2 group-hover:transition-all rounded-tr-xl rounded-br-xl"></span>
@@ -102,7 +102,7 @@ export default function Navbar() {
                         <span className="absolute -bottom-1 right-1/2 w-0 h-0.5 bg-gray-700 group-hover:w-1/2 group-hover:transition-all rounded-tl-xl rounded-bl-xl"></span>
                     </p>
                 </Link>
-                <Link href={"/"}>
+                <Link href={"/login"}>
                     <p className="cursor-pointer relative group font-medium mx-10 p-1">
                         <span>Login</span>
                         <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-gray-700 group-hover:w-1/2 group-hover:transition-all rounded-tr-xl rounded-br-xl"></span>

@@ -8,8 +8,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        burtons: "burtons",
+        Fira: ["Fira Code", "sans-serif"],
       },
+      colors: {
+        "greenCode": "#008000",
+        "darkLight": "#1D1D1E",
+        "grayBg": "#A7A7A7",
+        "grayCard": "#2C2C2E",
+        "blueCode": "#155E75",
+        "orangeCode": "#EAB308",
+      }
     },
   },
   plugins: [],

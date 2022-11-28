@@ -58,6 +58,45 @@ extend: {
 
 To use the __custom font Fira__ we modify the *document* (find how [here](https://nextjs.org/docs/advanced-features/custom-document)) and we import the font using [Google Fonts](https://fonts.google.com/knowledge)
 
+## Animations
+
+To animate the app we use [Framer-motion](https://www.framer.com/motion/).
+
+We are principally using animation we the component become visible on screen. Let's quickly see how if you want to modify it for your own projects.
+
+```js
+import { motion as m, Variants } from "framer-motion";
+
+export default function About() {
+    const contentVariant: Variants = {
+      offscreen: {
+        opacity: 0,
+      },
+      onscreen: {
+        opacity: 1,
+        transition: {
+          type: "spring",
+          duration: 0.8,
+        }
+      }
+    };
+
+    return (
+      <m.div initial="offscreen" whileInView="onscreen" viewport={{ once: true, amount: 0.8 }}>
+      
+        <m.div variants={contentVariant}>
+          Child element
+        </m.div>
+        
+      </m.div>
+    )
+}
+```
+
+You just see a quick example of framer-motion possibilities. Go check the documentation to know more!
+
+Btw for the Navbar, we used an other library which is really powerfull to (even if its a lighter one). Go check its doc [here](https://headlessui.com/).
+
 ## Form checking
 
 The library used to make the form fonctionnal is __formik__. You can check the documentation [here](https://formik.org/).

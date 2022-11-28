@@ -95,7 +95,7 @@ export default function About() {
 
 You just see a quick example of framer-motion possibilities. Go check the documentation to know more!
 
-Btw for the Navbar, we used an other library which is really powerfull to (even if its a lighter one). Go check its doc [here](https://headlessui.com/).
+Btw for the Navbar, we used an other library which is really powerfull too (even if its a lighter one). Go check its documentation [here](https://headlessui.com/) to know more about it.
 
 ## Form checking
 

@@ -2,24 +2,23 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, clone the repo:
+Clone the repository
 
 ```bash
-git clone git@github.com:random-long-int/ece-webapp-PierreLouis-Kilan.git project-clone-name
+git clone git@github.com:random-long-int/geekit.git clone-name
 ```
 
-Then install dependecies:
+Then, install all the required packages
 
 ```bash
-cd project-clone-name
+cd clone-name
 
 npm install
-# or
+#or
 yarn install
 ```
 
-
-Now, run the development server:
+Finally, run the development server:
 
 ```bash
 npm run dev
@@ -28,6 +27,57 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Form checking
+
+The library used to make the form fonctionnal is __formik__. You can check the documentation [here](https://formik.org/).
+
+It is easy to understand and simplify your code. You don't have to use a lot of `useState` and `ChangeEvent`.
+
+```js
+import { useFormik } from "formik";
+
+export default function Test() {
+    const formik = useFormik({
+        initialValues: {
+            name: "",
+        },
+    })
+
+    return (
+        <form
+            // let the default values after submitting
+            onSubmit={formik.handleSubmit}
+        >
+            <input 
+                type="text" 
+                name="name" 
+                value={formik.values.name} 
+                onChange={formik.handleChange}
+            />
+        </form>
+    );
+};
+```
+
+To verify if inputs have correct data we use __Yup__. You can check the documentation [here](https://www.npmjs.com/package/yup).
+
+Like formik, it helps understanding easily the code and it comes with a lot of interesting features!
+
+```js
+import * as Yup from 'yup'
+[...]
+
+const formik = useFormik({
+    [...]
+    validationSchema: Yup.object({
+        name: Yup.string()
+            .max(25, "Must be 25 characters or less")
+            .required("Required"),
+    }),
+    [...]
+})
+```
 
 ## Learn More
 

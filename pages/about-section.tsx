@@ -44,7 +44,7 @@ export default function AboutSection() {
           className='max-w-6xl mx-auto flex flex-col items-center lg:flex-row lg:justify-between'
         >
 
-          <Image src={jobs} alt="Jobs" width={500} height={670} className='w-80 md:w-96 lg:w-[420px] h-auto mt-10' />
+          <Image src={jobs} alt="Jobs" width={400} height={520} className='w-80 md:w-96 lg:w-[420px] h-auto mt-10' />
 
           <div className='mb-10'>
             <m.div

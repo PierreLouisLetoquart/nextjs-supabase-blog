@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import AboutSection from "./about-section";
+import Contact from "./contact-section";
 import HowItWork from "./how-section";
 import MainSection from "./main-section";
 
@@ -16,6 +17,7 @@ export default function Home() {
         <MainSection/>
         <AboutSection/>
         <HowItWork/>
+        <Contact/>
       </main>
     </div>
   );

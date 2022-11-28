@@ -28,6 +28,30 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Styling app
+
+We are using the tailwindcss lib to style the app. You can the the documentation for Next app [here](https://tailwindcss.com/docs/guides/nextjs).
+
+In the `tailwindcss.config.js`, you can see some custom variables for tailwindcss
+
+```js
+extend: {
+  fontFamily: {
+    Fira: ["Fira Code", "sans-serif"],
+  },
+  colors: {
+    "greenCode": "#008000",
+    "darkLight": "#1D1D1E",
+    "grayBg": "#A7A7A7",
+    "grayCard": "#2C2C2E",
+    "blueCode": "#155E75",
+    "orangeCode": "#EAB308",
+  }
+},
+```
+
+To use the __custom font Fira__ we modify the *document* (find how [here](https://nextjs.org/docs/advanced-features/custom-document)) and we import the font using [Google Fonts](https://fonts.google.com/knowledge)
+
 ## Form checking
 
 The library used to make the form fonctionnal is __formik__. You can check the documentation [here](https://formik.org/).

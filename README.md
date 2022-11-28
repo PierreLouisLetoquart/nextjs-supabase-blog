@@ -2,6 +2,8 @@
 
 Geekit is a web application created for a school project at ECE Paris
 
+Story-telling: Geekit is a fake forum for programmers (a mix between StackOverflow and LinkedIn), the forum is not entirely implemented so you just have the landing page. Stay tuned for the Forum/Blog part!
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import jobs from '../public/steve.png'
-import TextContainer from '../components/TextContainer'
-import Button from '../components/Button'
+import jobs from '../../public/steve.png'
+import TextContainer from '../../components/TextContainer'
+import Button from '../../components/Button'
 
 import { motion as m, Variants } from "framer-motion";
 import React from 'react';

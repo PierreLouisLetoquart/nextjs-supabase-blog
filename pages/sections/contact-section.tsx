@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import { AiFillInstagram, AiFillGithub, AiFillLinkedin } from 'react-icons/ai'
 import { motion as m, Variants } from "framer-motion";
-import TextContainer from '../components/TextContainer'
-import Form from '../components/Form'
+import TextContainer from '../../components/TextContainer'
+import Form from '../../components/Form'
 
 export default function Contact() {
     const contentVariantLeft: Variants = {

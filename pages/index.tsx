@@ -1,9 +1,9 @@
 import Head from "next/head";
 import React from "react";
-import AboutSection from "./about-section";
-import Contact from "./contact-section";
-import HowItWork from "./how-section";
-import MainSection from "./main-section";
+import AboutSection from "./sections/about-section";
+import Contact from "./sections/contact-section";
+import HowItWork from "./sections/how-section";
+import MainSection from "./sections/main-section";
 import Footer from "../components/Footer";
 
 export default function Home() {

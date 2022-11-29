@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
-import Card from '../components/Card'
-import code from '../public/coding-language.png'
-import computer from '../public/computer.png'
-import coding from '../public/coding.png'
+import Card from '../../components/Card'
+import code from '../../public/coding-language.png'
+import computer from '../../public/computer.png'
+import coding from '../../public/coding.png'
 import { motion as m, Variants } from "framer-motion";
 import React from 'react';
 

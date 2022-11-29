@@ -1,6 +1,6 @@
 import { SlMouse } from 'react-icons/sl';
-import Button from "../components/Button";
-import TextContainer from "../components/TextContainer";
+import Button from "../../components/Button";
+import TextContainer from "../../components/TextContainer";
 import { motion as m } from "framer-motion";
 import React from 'react';
 

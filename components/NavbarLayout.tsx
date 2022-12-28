@@ -56,12 +56,9 @@ export function NavButton() {
     const [text, setText] = useState<string>('');
 
     useEffect(() => {
-        if(session && router.pathname === '/') {
+        if(router.pathname === '/') {
            setPath('/blog');
            setText('Browse');
-        } else if(!session && router.pathname === '/') {
-            setPath('/login');
-            setText('Login');
         } else if(router.pathname.startsWith('/blog')) {
             setPath(`/profile/${session?.user.id}`);
             setText('Profile');

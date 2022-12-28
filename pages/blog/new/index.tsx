@@ -1,10 +1,14 @@
+import { useSupabase } from '../../../contexts/supabase-provider';
 import { useTheme } from '../../../contexts/theme-provider';
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import { MdKeyboardBackspace } from 'react-icons/md';
 import { useRouter } from 'next/router';
+import { NotifierProps } from '../../../components/Notifier';
+import { toast } from 'react-toastify';
 
 export default function CreatePostForm() {
+    const { session, supabase } = useSupabase();
     const { theme } = useTheme();
     const router = useRouter();
     
@@ -22,10 +26,41 @@ export default function CreatePostForm() {
         }
     };
 
+    const handleCreation = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if(loading) return; // Prevent multiple requests
+        if (!title || !content || title.length < 3 || content.length < 3) {
+            toast.error("Invalid post data" , NotifierProps);
+            return;
+        }
+
+        const postTitle = title;
+        const postContent = content;
+
+        try {
+            setLoading(true);
+            if(!session) throw new Error('Error occured... Please try again later.');
+            const { data, error } = await supabase
+                .from("posts")
+                .insert([
+                    {author_id: session!.user.id, title: postTitle, content: postContent, is_published: true},
+                ]);
+            if (error) throw error;
+            if (data) {
+                toast.success('Successfully created!', NotifierProps);
+            }
+        } catch (err : any) {
+            toast.error(err.message , NotifierProps);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <section className='w-full min-h-screen flex justify-center pt-28'>
-                <form 
+                <form
+                    onSubmit={handleCreation}
                     className={`relative w-full max-w-xl h-full bg-opacity-50 backdrop-blur-md p-10 rounded-xl flex flex-col items-center gap-6 border-[1px] ${
                         theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-zinc-100 border-zinc-200'}
                     `}
@@ -70,9 +105,13 @@ export default function CreatePostForm() {
                             </span>
                         </div>
                     </section>
-                    <button type="submit" className={`text-center w-full px-4 py-2 rounded-md opacity-90 hover:opacity-100 ${
-                        theme === 'dark' ? 'bg-zinc-100 text-zinc-900' : 'bg-zinc-800 text-zinc-50'}
-                    `}>
+                    <button
+                        disabled={loading}
+                        type="submit" 
+                        className={`text-center w-full px-4 py-2 rounded-md opacity-90 hover:opacity-100 ${
+                            theme === 'dark' ? 'bg-zinc-100 text-zinc-900' : 'bg-zinc-800 text-zinc-50'}
+                        `}
+                    >
                         {loading ? <FaSpinner className='animate-spin'/> :
                         <span>Post it!</span>}
                     </button>

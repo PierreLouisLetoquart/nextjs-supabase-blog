@@ -46,9 +46,10 @@ export default function CreatePostForm() {
                     {author_id: session!.user.id, title: postTitle, content: postContent, is_published: true},
                 ]);
             if (error) throw error;
-            if (data) {
-                toast.success('Successfully created!', NotifierProps);
-            }
+            toast.success('Successfully created!', NotifierProps);
+            setTimeout(() => {
+                router.push(`/blog`);
+            }, 2000);
         } catch (err : any) {
             toast.error(err.message , NotifierProps);
         } finally {

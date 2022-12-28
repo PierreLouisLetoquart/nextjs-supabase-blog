@@ -5,6 +5,7 @@ import { FaGithub, FaGoogle, FaSpinner } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { NotifierProps } from "../../components/Notifier";
 import { useSupabase } from '../../contexts/supabase-provider';
+import { getAvatarUrl } from "../../utils/gravatar";
 
 export default function Login() {
     const { supabase } = useSupabase();
@@ -34,7 +35,7 @@ export default function Login() {
                 let { data, error } = await supabase.auth.signUp({
                     email: formData.email,
                     password: formData.password,
-                    options: {data: {username: formData.name}}
+                    options: {data: {username: formData.name, avatar_url: getAvatarUrl(formData.name)}}
                 })
                 if (error) throw new Error(error.message)
                 if (data) {

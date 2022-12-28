@@ -7,14 +7,70 @@ import { MdKeyboardBackspace } from 'react-icons/md'
 
 import { useTheme } from '../contexts/theme-provider'
 import { useSupabase } from '../contexts/supabase-provider'
+import { toast } from 'react-toastify'
+import { NotifierProps } from './Notifier'
 
 export default function PostPage({ post }: { post: any }) {
-    const { session } = useSupabase()
+    const { session, supabase } = useSupabase()
     const { theme } = useTheme()
     const router = useRouter()
 
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [isSaved, setIsSaved] = useState<boolean>(false);
+
+    const [comments, setComments] = useState<any>(post.comments.reverse());
+    const [loading, setLoading] = useState<boolean>(false);
+    const [content, setContent] = useState<string>('');
+
+    const handleContent = (event: { target: { value: any; }; }) => { setContent(event.target.value); };
+
+    const handleComment = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if(loading) return; // Prevent multiple requests
+        if (!content || content.length < 3) {
+            toast.error("Invalid comment data" , NotifierProps);
+            return;
+        }
+
+        const postContent = content;
+
+        try {
+            setLoading(true);
+            if(!session) throw new Error('Error occured... Please try again later.');
+            const { error } = await supabase
+                .from('comments')
+                .insert([
+                    { author_id: session!.user.id, post_id: post.id, content: postContent },
+                ])
+            if (error) throw error;
+            toast.success('Successfully posted!', NotifierProps);
+            setContent('');
+        } catch (err : any) {
+            toast.error(err.message , NotifierProps);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const addComment = async (payload: any) => {
+        let newComment: any;
+        try {
+            let { data: comm, error } = await supabase
+                .from('comments')
+                .select('*, profiles(*)')
+                .eq('id', payload.id)
+                .single()
+            if (error) throw error;
+            newComment = comm;
+        } catch (err : any) {
+            toast.error(err.message , NotifierProps);
+        } finally {
+            setComments([
+                newComment,
+                ...comments
+            ]);
+        }
+    }
 
     useEffect(() => {
         if(post.likes)
@@ -25,6 +81,20 @@ export default function PostPage({ post }: { post: any }) {
             post.bookmarks.map((bookmark: any) => {
                 if (bookmark.user_id === session?.user.id) setIsSaved(true)
             });
+
+        supabase.channel('comments-adding')
+            .on(
+            'postgres_changes',
+            { event: 'INSERT', schema: 'public', table: 'comments', filter: `post_id=eq.${post.id}` },
+            (payload) => {
+                addComment(payload.new);
+            }
+            )
+            .subscribe()
+
+        return () => {
+            supabase.channel('comments-adding').unsubscribe()
+        }
     }, [session])
     
     return (
@@ -58,24 +128,25 @@ export default function PostPage({ post }: { post: any }) {
                 </section>
             </footer>
             {/* Comment Input */}
-            <form className={`shadow-inner w-full rounded-md p-1 flex items-center gap-2 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-zinc-100'}`}>
-                <textarea 
+            <form onSubmit={handleComment} className={`shadow-inner w-full rounded-md p-1 flex items-center gap-2 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-zinc-100'}`}>
+                <textarea
+                    onChange={handleContent}
                     className={`resize-none w-full h-10 p-2 text-sm outline-none ${theme === 'dark' ? 'bg-zinc-700 text-zinc-100' : 'bg-zinc-100 text-zinc-800'}`} 
                     placeholder="Add a comment..." 
                 />
-                <RiSendPlaneLine className={`text-3xl cursor-pointer pr-2 ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`} />
+                <button type='submit'>
+                    <RiSendPlaneLine className={`text-3xl cursor-pointer pr-2 ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`} />
+                </button>
             </form>
             {/* Comments */}
                 <section className={`w-full flex flex-col gap-4 pt-3`}>
                     <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}> Comments </p>
-                    <section className={`w-full flex flex-col gap-2 pl-[6px] border-l-[1px] border-zinc-300`}>
-                        <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}>
-                            Pilou
-                        </p>
-                        <p className={`text-sm ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                    </section>
+                    {comments.map((comment: any) => (
+                        <section key={comment.id} className={`w-full flex flex-col gap-2 pl-1 border-l-[1px] border-zinc-300`}>
+                            <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}> {comment.profiles.username ? comment.profiles.username : 'John Doe'} </p>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}> {comment.content} </p>
+                        </section>
+                    ))}
                 </section>
         </section>
     )

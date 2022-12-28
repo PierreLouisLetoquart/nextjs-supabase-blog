@@ -14,7 +14,7 @@ export default function PostDetailed({post}: {post: any}) {
 export async function getServerSideProps({ params } : any) {
     const { data: post, error } = await supabase
         .from('posts')
-        .select('*, comments(*), likes(*), bookmarks(*)')
+        .select('*, comments(*, profiles(*)), likes(*), bookmarks(*)')
         .eq('id', params.id)
         .single()
 

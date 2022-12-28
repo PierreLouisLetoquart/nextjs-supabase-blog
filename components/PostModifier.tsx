@@ -22,7 +22,7 @@ export const PostModifier = ({ post }: { post: any }) => {
             setLoading(true);
             const { error } = await supabase
                 .from('posts')
-                .delete()
+                .update({ is_published: false })
                 .eq('id', post.id)
             if(error) throw error;
             toast.success('Successfully deleted!', NotifierProps);

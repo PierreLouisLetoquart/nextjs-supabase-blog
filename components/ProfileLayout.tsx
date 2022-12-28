@@ -25,10 +25,9 @@ function ProfileNavbar() {
     const [activeLik, setActiveLik] = useState(false)
 
     useEffect(() => {
-        console.log(session);
         if(router.pathname === '/profile/[id]') setActiveLik(false)
         else if(router.pathname === '/profile/saved/[id]') setActiveLik(true)
-    }, [])
+    }, [router.pathname, session])
 
     return (
         <header>

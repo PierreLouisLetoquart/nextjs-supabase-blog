@@ -73,7 +73,7 @@ export function NavButton() {
             setPath('/');
             setText('Home');
         }
-    }, [router.pathname])
+    }, [router.pathname, session?.user.id])
 
     return (
         <Link href={path}>

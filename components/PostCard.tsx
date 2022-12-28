@@ -73,7 +73,7 @@ export const PostCard = ({ post }: { post: any }) => {
             post.bookmarks.map((bookmark: any) => {
                 if (bookmark.user_id === session?.user.id) setIsBookmarked(true)
             });
-    }, [session])
+    }, [session, post.bookmarks, post.likes])
 
     return (
         <section className={`shadow-md w-full max-w-md p-10 flex flex-col items-center gap-6 rounded-md ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}>

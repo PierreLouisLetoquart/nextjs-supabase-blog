@@ -95,7 +95,7 @@ export default function PostPage({ post }: { post: any }) {
         return () => {
             supabase.channel('comments-adding').unsubscribe()
         }
-    }, [session])
+    }, [session, post.bookmarks, post.id, post.likes, supabase])
     
     return (
         <section className={`w-full h-full max-w-2xl p-10 flex flex-col items-center gap-6 rounded-md`}>
@@ -143,10 +143,18 @@ export default function PostPage({ post }: { post: any }) {
                 <section className={`w-full flex flex-col gap-4 pt-3`}>
                     <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}> Comments </p>
                     {comments.map((comment: any) => (
-                        <section key={comment.id} className={`w-full flex flex-col gap-2 pl-1 border-l-[1px] border-zinc-300`}>
-                            <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}> {comment.profiles.username ? comment.profiles.username : 'John Doe'} </p>
-                            <p className={`text-sm ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}> {comment.content} </p>
-                        </section>
+                        <div key={comment.id} className='w-full flex flex-col justify-start'>
+                            <section className={`w-full flex flex-col gap-2 pl-1 border-l-[1px] border-zinc-300`}>
+                                <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}> {comment.profiles.username ? comment.profiles.username : 'John Doe'} </p>
+                                <p className={`text-sm ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}> {comment.content} </p>
+                            </section>
+                            {comment.user_id === session?.user.id &&
+                            <button className='pt-2 pl-2 w-full text-start text-xs underline text-zinc-500'>
+                                Delete
+                            </button>
+                            }
+                        </div>
+                        
                     ))}
                 </section>
         </section>

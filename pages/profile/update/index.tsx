@@ -15,8 +15,8 @@ export default function UpdateUserForm () {
     const router = useRouter();
     
     const [loading, setLoading] = useState<boolean>(false);
-    const [username, setUsername] = useState<string>(session!.user.user_metadata.username);
-    const [avatar, setAvatar] = useState<string>(session!.user.user_metadata.avatar_url);
+    const [username, setUsername] = useState<string>(session?.user.user_metadata.username ?? '');
+    const [avatar, setAvatar] = useState<string>(session?.user.user_metadata.avatar_url ?? '');
 
     const handleUsername = (event: { target: { value: any; }; }) => { setUsername(event.target.value); };
     const handleAvatar = () => { setAvatar(getAvatarUrl(session!.user.user_metadata.username)); };

@@ -25,6 +25,7 @@ function ProfileNavbar() {
     const [activeLik, setActiveLik] = useState(false)
 
     useEffect(() => {
+        console.log(session);
         if(router.pathname === '/profile/[id]') setActiveLik(false)
         else if(router.pathname === '/profile/saved/[id]') setActiveLik(true)
     }, [])
@@ -36,12 +37,12 @@ function ProfileNavbar() {
             {/* Profile data and edition CTA */}
             <section className={`w-full max-w-5xl mx-auto h-60 flex flex-col md:flex-row justify-center items-center gap-5`}>
                 <div className="rounded-full w-24 h-24 relative overflow-hidden md:h-32 md:w-32">
-                    <Image src={session?.user.user_metadata.avatarUrl ?? defaultPic} fill className="object-cover" alt="ProfilePic" />
+                    <Image src={session?.user.user_metadata.avatar_url ?? defaultPic} fill className="object-cover" alt="ProfilePic" />
                 </div>
                 <section className={`h-24 md:h-40 md:pl-5 flex flex-col items-center md:items-start justify-center gap-2 md:border-l-[1px] ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
                     <h2 className={`text-2xl font-bold ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}>{session?.user.user_metadata.username ?? 'John Doe'}</h2>
                     <h2 className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-200' : 'text-zinc-800'}`}>{session?.user.email ?? ':/'}</h2>
-                    <button onClick={() => setModify(true)} className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                    <button onClick={() => router.push('/profile/update')} className={`text-xs ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
                         <AiTwotoneEdit className="inline-block mr-1" />
                         Edit Profile
                     </button>

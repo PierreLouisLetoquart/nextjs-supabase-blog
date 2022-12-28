@@ -3,3 +3,9 @@
 @tailwind utilities;
 
 * { box-sizing: border-box; }
+
+#postCardContent {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

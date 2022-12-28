@@ -87,7 +87,7 @@ export const PostCard = ({ post }: { post: any }) => {
 
             <p
                 onClick={() => router.push(`/blog/${post.id}`)}
-                id='teazeContent' 
+                id='postCardContent' 
                 className={`cursor-pointer overflow-hidden ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}
             >
                 {post.content}

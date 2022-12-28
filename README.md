@@ -4,8 +4,8 @@ Geekit is a minimalist and simple blog. Visit the blog, create an account with y
 
 ## Production 
 
-- Vercel URL: https://...
-- Supabase project URL: https://app.supabase.com/project/...
+- Vercel URL: https://ece-webapp-pierre-louis-kilan.vercel.app
+- Supabase project URL: https://app.supabase.com/project/daanvkdbopwfvbubxcgk
 
 ## Usage
 
@@ -13,6 +13,12 @@ Geekit is a minimalist and simple blog. Visit the blog, create an account with y
 
 ```
 git clone git@github.com:random-long-int/ece-webapp-PierreLouis-Kilan.git webapp-kilan-pl
+```
+
+- Supabase Link
+
+```bash
+cp .env.local.example .env.local
 ```
 
 - Start the the application
@@ -24,14 +30,6 @@ npm install
 npm run build
 npm start
 ```
-
-- Supabase Link
-
-```bash
-cp .env.local.example .env.local
-```
-
-TODO: mettre les data de connection
 
 ## Authors
 

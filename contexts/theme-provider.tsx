@@ -1,6 +1,8 @@
 'use client';
 
-import { createContext, useContext, useState, useMemo } from 'react';
+import cookie from 'js-cookie';
+
+import { createContext, useContext, useState, useMemo, useEffect } from 'react';
 
 export type Theme = 'light' | 'dark';
 
@@ -19,6 +21,16 @@ export default function ThemeProvider({
 }) {
 
     const [currentTheme, setCurrentTheme] = useState<Theme>('light' as Theme);
+    
+    useEffect(() => {
+        if(cookie.get('theme') === 'dark') {
+            setCurrentTheme('dark');
+        } else {
+            setCurrentTheme('light');
+            cookie.set('theme', 'light');
+        }
+    }, []);
+
     const value = useMemo(() => ({ theme: currentTheme, setTheme: setCurrentTheme }), [currentTheme]);
 
     return (

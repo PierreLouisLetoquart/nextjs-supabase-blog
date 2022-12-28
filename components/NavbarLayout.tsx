@@ -5,6 +5,7 @@ import { useTheme } from "../contexts/theme-provider";
 import { useSupabase } from "../contexts/supabase-provider";
 import { motion as m } from 'framer-motion';
 import { IoIosAddCircle } from 'react-icons/io';
+import cookie from 'js-cookie';
 
 export default function NavbarLayout({ children } : { children: React.ReactNode }) {
     const { theme } = useTheme();
@@ -91,7 +92,10 @@ export function Toggler() {
     return (
         <div 
             className={`w-7 h-4 flex rounded-full p-[2px] cursor-pointer ${theme == "dark" ? 'justify-end bg-zinc-100' : 'justify-start bg-zinc-900'}`} 
-            onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
+            onClick={() => {
+                setTheme(theme == "dark" ? "light" : "dark");
+                cookie.set('theme', theme == "dark" ? "light" : "dark");
+            }}
         >
             <m.div 
                 className={`h-3 w-3 rounded-full ${theme == "dark" ? 'bg-zinc-900' : 'bg-zinc-100'}`} 

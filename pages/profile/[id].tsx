@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 export default function Profile({posts} : {posts: any}) {
     const [postsList, setPostsList] = useState(posts);
 
-    if(!postsList) return <ProfileLayout><NoPostBanner /></ProfileLayout>
+    if(!postsList || postsList.length === 0) return <ProfileLayout><NoPostBanner /></ProfileLayout>
     return (
         <>
             <ProfileLayout>

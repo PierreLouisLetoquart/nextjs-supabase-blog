@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "../contexts/theme-provider";
 import { useSupabase } from "../contexts/supabase-provider";
 import { motion as m } from 'framer-motion';
+import { IoIosAddCircle } from 'react-icons/io';
 
 export default function NavbarLayout({ children } : { children: React.ReactNode }) {
     const { theme } = useTheme();
@@ -34,6 +35,11 @@ function Navbar() {
                     <div className={`pr-6 py-2 border-r-[1px] ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
                         <Toggler />
                     </div>
+                    {session && (
+                        <Link href={`/blog/new`}>
+                            <IoIosAddCircle className={`text-3xl ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`} />
+                        </Link>
+                    )}
                     <NavButton />
                 </section>
             </div>

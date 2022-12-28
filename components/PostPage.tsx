@@ -72,6 +72,58 @@ export default function PostPage({ post }: { post: any }) {
         }
     }
 
+    const handleLike = async () => {
+        try {
+            setLoading(true);
+            if (isLiked) {
+                // unlike
+                const { error } = await supabase
+                    .from('likes')
+                    .delete()
+                    .match({ post_id: post.id, user_id: session?.user.id })
+                if (error) throw error;
+                setIsLiked(false);
+            } else {
+                // like
+                const { error } = await supabase
+                    .from('likes')
+                    .insert([{user_id: session!.user.id, post_id: post.id}])
+                if (error) throw error;
+                setIsLiked(true);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleBookmark = async () => {
+        try {
+            setLoading(true);
+            if (isSaved) {
+                // unbookmark
+                const { error } = await supabase
+                    .from('bookmarks')
+                    .delete()
+                    .match({ post_id: post.id, user_id: session?.user.id })
+                if (error) throw error;
+                setIsSaved(false);
+            } else {
+                // bookmark
+                const { error } = await supabase
+                    .from('bookmarks')
+                    .insert([{user_id: session!.user.id, post_id: post.id}])
+                if (error) throw error;
+                setIsSaved(true);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
         if(post.likes)
             post.likes.map((like: any) => {
@@ -119,12 +171,16 @@ export default function PostPage({ post }: { post: any }) {
                 {/* Likes, Save */}
                 <section className={`w-full flex justify-between items-center gap-4 pb-3 border-b-[1px] ${theme === 'dark' ? 'border-zinc-700' : 'border-zinc-300'}`}>
                     {/* Like Button*/}
-                    {!isLiked && <FaRegHeart className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}/>}
-                    {isLiked && <FaHeart className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-rose-600' : 'text-rose-500'}`}/>}
+                    <button type='button' disabled={loading} onClick={handleLike}>
+                        {!isLiked && <FaRegHeart className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}/>}
+                        {isLiked && <FaHeart className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-rose-600' : 'text-rose-500'}`}/>}
+                    </button>
                     {/* Comment Button*/}
                     {/* Save Button*/}
-                    {!isSaved && <FaRegBookmark className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}/>}
-                    {isSaved && <FaBookmark className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}/>}
+                    <button type='button' disabled={loading} onClick={handleBookmark}>
+                        {!isSaved && <FaRegBookmark className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}/>}
+                        {isSaved && <FaBookmark className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}/>}
+                    </button>
                 </section>
             </footer>
             {/* Comment Input */}

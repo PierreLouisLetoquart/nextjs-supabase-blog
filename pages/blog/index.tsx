@@ -27,6 +27,7 @@ export async function getStaticProps() {
     const { data: posts, error } = await supabase
         .from('posts')
         .select('*, likes(*), bookmarks(*)')
+        .eq('is_published', true)
         .order('created_at', { ascending: false })
 
     if (error) {

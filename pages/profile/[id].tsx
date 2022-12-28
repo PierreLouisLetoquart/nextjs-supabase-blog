@@ -30,6 +30,7 @@ export async function getServerSideProps({ params } : any) {
         .from('posts')
         .select('*')
         .eq('author_id', params.id)
+        .eq('is_published', true)
         .order('created_at', { ascending: false })
 
     return {

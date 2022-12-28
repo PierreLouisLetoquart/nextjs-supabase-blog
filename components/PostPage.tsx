@@ -130,6 +130,7 @@ export default function PostPage({ post }: { post: any }) {
             {/* Comment Input */}
             <form onSubmit={handleComment} className={`shadow-inner w-full rounded-md p-1 flex items-center gap-2 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-zinc-100'}`}>
                 <textarea
+                    value={content}
                     onChange={handleContent}
                     className={`resize-none w-full h-10 p-2 text-sm outline-none ${theme === 'dark' ? 'bg-zinc-700 text-zinc-100' : 'bg-zinc-100 text-zinc-800'}`} 
                     placeholder="Add a comment..." 

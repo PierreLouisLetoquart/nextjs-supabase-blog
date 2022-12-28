@@ -37,7 +37,7 @@ TODO: mettre les data de connection
 
 - Pierre-Louis Létoquart | pierrelouislet@gmail.com
 
-- Kilan Kardous |
+- Kilan Kardous | kylan.kardous@gmail.com
 
 ## Tasks
 

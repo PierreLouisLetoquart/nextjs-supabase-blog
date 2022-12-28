@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { PostCard } from "../../../components/PostCard";
 import ProfileLayout from "../../../components/ProfileLayout";
@@ -8,8 +8,12 @@ import supabase from "../../../utils/supabase";
 
 export default function Profile({bookmarks} : {bookmarks: any}) {
     const [bookmarksList, setBookmarksList] = useState(bookmarks);
+    
+    useEffect(() => {
+        setBookmarksList(bookmarks)
+    }, [bookmarks])
 
-    if(!bookmarksList) return <ProfileLayout><NoPostBanner /></ProfileLayout>
+    if(!bookmarksList || bookmarksList.length === 0) return <ProfileLayout><NoPostBanner /></ProfileLayout>
     return (
         <>
             <ProfileLayout>
@@ -26,9 +30,9 @@ export default function Profile({bookmarks} : {bookmarks: any}) {
 }
 
 export async function getServerSideProps({ params } : any) {
-    const { data: bookmarks } = await supabase
+    const { data: bookmarks, error } = await supabase
         .from('bookmarks')
-        .select('posts(*), posts:likes(*), posts:bookmarks(*)')
+        .select('posts(*, likes(*), bookmarks(*))')
         .eq('user_id', params.id)
 
     return {

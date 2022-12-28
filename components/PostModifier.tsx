@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { NotifierProps } from './Notifier'
+import CreatePostForm from '../pages/blog/new/index'
 
 export const PostModifier = ({ post }: { post: any }) => {
     const { supabase } = useSupabase();
@@ -45,7 +46,10 @@ export const PostModifier = ({ post }: { post: any }) => {
                         onClick={handleDelete}
                         className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}
                     />
-                    <RiEditLine className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}/>
+                    <RiEditLine
+                        onClick={() => router.push(`/blog/new/${post.id}`)}
+                        className={`text-xl cursor-pointer ${theme === 'dark' ? 'text-zinc-300' : 'text-zinc-700'}`}
+                    />
                 </div>
                 <MdZoomOutMap
                     onClick={() => router.push(`/blog/${post.id}`)}

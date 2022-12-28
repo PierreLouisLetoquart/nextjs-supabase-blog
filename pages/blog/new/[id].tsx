@@ -6,15 +6,16 @@ import { MdKeyboardBackspace } from 'react-icons/md';
 import { useRouter } from 'next/router';
 import { NotifierProps } from '../../../components/Notifier';
 import { toast } from 'react-toastify';
+import supabase from '../../../utils/supabase';
 
-export default function CreatePostForm() {
+export default function CreatePostForm({post} : {post : any}) {
     const { session, supabase } = useSupabase();
     const { theme } = useTheme();
     const router = useRouter();
     
     const [loading, setLoading] = useState<boolean>(false);
-    const [title, setTitle] = useState<string>('');
-    const [content, setContent] = useState<string>('');
+    const [title, setTitle] = useState<string>(post.title);
+    const [content, setContent] = useState<string>(post.content);
 
     const handleTitle = (event: { target: { value: any; }; }) => { setTitle(event.target.value); };
     const handleContent = (event: { target: { value: any; }; }) => { setContent(event.target.value); };
@@ -26,7 +27,7 @@ export default function CreatePostForm() {
         }
     };
 
-    const handleCreation = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleUpdate = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if(loading) return; // Prevent multiple requests
         if (!title || !content || title.length < 3 || content.length < 3) {
@@ -40,14 +41,13 @@ export default function CreatePostForm() {
         try {
             setLoading(true);
             if(!session) throw new Error('Error occured... Please try again later.');
-            const { data, error } = await supabase
-                .from("posts")
-                .insert([
-                    {author_id: session!.user.id, title: postTitle, content: postContent, is_published: true},
-                ]);
+            const { error } = await supabase
+                .from('posts')
+                .update({ title: postTitle, content: postContent })
+                .eq('id', post.id)
             if (error) throw error;
-            toast.success('Successfully created!', NotifierProps);
-            router.push(`/blog`);
+            toast.success('Successfully updated!', NotifierProps);
+            router.push(`/blog/${post.id}`);
         } catch (err : any) {
             toast.error(err.message , NotifierProps);
         } finally {
@@ -59,7 +59,7 @@ export default function CreatePostForm() {
         <>
             <section className='w-full min-h-screen flex justify-center pt-28'>
                 <form
-                    onSubmit={handleCreation}
+                    onSubmit={handleUpdate}
                     className={`relative w-full max-w-xl h-full bg-opacity-50 backdrop-blur-md p-10 rounded-xl flex flex-col items-center gap-6 border-[1px] ${
                         theme === 'dark' ? 'bg-zinc-800 border-zinc-700' : 'bg-zinc-100 border-zinc-200'}
                     `}
@@ -106,18 +106,44 @@ export default function CreatePostForm() {
                             </span>
                         </div>
                     </section>
-                    <button
-                        disabled={loading}
-                        type="submit" 
-                        className={`text-center w-full px-4 py-2 rounded-md opacity-90 hover:opacity-100 ${
-                            theme === 'dark' ? 'bg-zinc-100 text-zinc-900' : 'bg-zinc-800 text-zinc-50'}
-                        `}
-                    >
-                        {loading ? <FaSpinner className='animate-spin'/> :
-                        <span>Post it!</span>}
-                    </button>
+                    <section className='w-full flex gap-2 items-center'>
+                        <button
+                            onClick={() => router.push('/profile')}
+                            disabled={loading}
+                            type="button" 
+                            className={`text-center w-full px-4 py-2 rounded-md opacity-90 hover:opacity-100 ${
+                                theme === 'dark' ? 'bg-zinc-100 text-zinc-900' : 'bg-zinc-800 text-zinc-50'}
+                            `}
+                        >
+                            <span>Cancel</span>
+                        </button>
+                        <button
+                            disabled={loading}
+                            type="submit" 
+                            className={`text-center w-full px-4 py-2 rounded-md opacity-90 hover:opacity-100 ${
+                                theme === 'dark' ? 'bg-zinc-100 text-zinc-900' : 'bg-zinc-800 text-zinc-50'}
+                            `}
+                        >
+                            {loading ? <FaSpinner className='animate-spin'/> :
+                            <span>Update</span>}
+                        </button>
+                    </section>
                 </form>
             </section>
         </>
     )
+}
+
+export async function getServerSideProps({ params } : any) {
+    const { data: post, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('id', params.id)
+        .single()
+
+    return {
+        props: {
+            post
+        }
+    }
 }

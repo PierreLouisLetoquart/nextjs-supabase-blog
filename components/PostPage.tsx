@@ -102,11 +102,11 @@ export default function PostPage({ post }: { post: any }) {
             <div className='w-full flex flex-col gap-3'>
                 {/* Close Tag */}
                 <p
-                    onClick={() => router.back()}
+                    onClick={() => router.push('/blog')}
                     className={`cursor-pointer text-sm font-medium flex items-center gap-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}
                 > 
                     <MdKeyboardBackspace />
-                    Back
+                    Back to Blog
                 </p>
                 {/* Title */}
                 <h3 className={`w-full text-left text-2xl font-bold ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}> {post.title} </h3>

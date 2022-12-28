@@ -124,6 +124,25 @@ export default function PostPage({ post }: { post: any }) {
         }
     }
 
+    const handleDelete = async (commId: string) => {
+        try {
+            setLoading(true);
+            const { error } = await supabase
+                .from('comments')
+                .delete()
+                .match({ id: commId })
+            if (error) throw error;
+            toast.success('Successfully deleted!', NotifierProps);
+            setTimeout(() => {
+                router.reload();
+            }, 1800);
+        } catch (error : any) {
+            toast.error(error.message , NotifierProps);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
         if(post.likes)
             post.likes.map((like: any) => {
@@ -204,8 +223,12 @@ export default function PostPage({ post }: { post: any }) {
                                 <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-700'}`}> {comment.profiles.username ? comment.profiles.username : 'John Doe'} </p>
                                 <p className={`text-sm ${theme === 'dark' ? 'text-zinc-50' : 'text-zinc-900'}`}> {comment.content} </p>
                             </section>
-                            {comment.user_id === session?.user.id &&
-                            <button className='pt-2 pl-2 w-full text-start text-xs underline text-zinc-500'>
+                            {comment.author_id === session?.user.id &&
+                            <button
+                                onClick={() => handleDelete(comment.id)}
+                                disabled={loading}
+                                className='pt-2 pl-2 w-full text-start text-xs underline text-zinc-500'
+                            >
                                 Delete
                             </button>
                             }

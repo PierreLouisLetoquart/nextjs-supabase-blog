@@ -13,6 +13,7 @@ Geekit is a minimalist and simple blog. Visit the blog, create an account with y
 
 ```
 git clone git@github.com:random-long-int/ece-webapp-PierreLouis-Kilan.git webapp-kilan-pl
+cd webapp-kilan-pl
 ```
 
 - Supabase Link
@@ -24,7 +25,6 @@ cp .env.local.example .env.local
 - Start the the application
 
 ```bash
-cd webapp-kilan-pl
 # Install dependencies (use yarn or npm)
 npm install
 npm run build
@@ -91,22 +91,24 @@ npm start
 
     Registered users can delete their own articles.
 
-- Comment modification
-
-    TODO
-
 - Comment removal
 
-    TODO
+    Comment can be delete on post only by their author. (No real time deleting)
 
 - Account settings
 
-    Users can access their account settings to modify their personal information and change their password.
+    Users can access their account settings to modify their personal information and change their password. (Some bugs unresolved... no time for it)
 
 - Gravatar integration
 
-    TODO
+    Random avatar generation if the user hasn't got it yet with [dicebear](https://github.com/dicebear/dicebear). You can see it in the update form for user and in the database but the profile table for user does not update it's data.
 
 - Light/dark theme
 
-    The blog includes a light and dark theme for users to choose from.
+    The blog includes a light and dark theme for users to choose from. Persistant to refreshing.
+
+## Bonnus
+
+- Middleware usage
+- Like function
+- Save function
